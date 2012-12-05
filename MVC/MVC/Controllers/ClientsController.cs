@@ -19,33 +19,37 @@ namespace MVC.Models
             };
         }
 
-        // GET api/values
-        public IQueryable<Client> GetClients()
+        // GET api/Clients
+        public IQueryable<Client> Get()
         {
             return Clients.AsQueryable();
         }
 
-        //// GET api/values/5
-        //public Client Get(int id)
-        //{
-        //    return Clients.Find(client => client.Id == id);
-        //}
+        // GET api/Clients/1
+        public Client Get(int id)
+        {
+            return Clients.Find(client => client.Id == id);
+        }
 
-        //// POST api/values
-        //public void Post([FromBody]string value)
-        //{
+        // POST api/Clients
+        public IEnumerable<Client> Post([FromBody]Client client)
+        {
+            Clients.Add(client);
+            return Clients;
+        }
 
-        //}
+        // PUT api/values/5
+        public IEnumerable<Client> Put([FromBody]Client client)
+        {
+            Clients.Find(x => x.Id == client.Id).Name = client.Name;
+            return Clients;
+        }
 
-        //// PUT api/values/5
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
-        //// DELETE api/values/5
-        //public void Delete(int id)
-        //{
-
-        //}
+        // DELETE api/Clients/5
+        public IEnumerable<Client> Delete(int id)
+        {
+            Clients.RemoveAll(x => x.Id == id);
+            return Clients;
+        }
     }
 }
